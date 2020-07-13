@@ -3,17 +3,19 @@ import random
 import networkx as nx
 import matplotlib.pyplot as plt
 
+# running time with default config on 1 core of Intel i5 4650K: ~ 10 mins
+
 numTests = 20  # 1 ≤ numTests ≤ 20
 r = open('_res.txt', 'x')
 f = open('_input.txt', 'x')
 f.write('{}\n'.format(numTests))
 for _ in range(numTests):
     numNodes = 10000  # n ≤ 10000 : number of nodes
-    probability = 9 / numNodes
+    # probability controls the number of edges
+    probability = 9 / numNodes  # default 9 / numNodes
     numShortcuts = 299  # k < 300 : number of lines (uj vj qj)
     maxWeight = 1000  # default 1000
-    s = random.randint(0, numNodes-1)  # 1 ≤ s ≤ n : starting node
-    t = random.randint(0, numNodes-1)  # 1 ≤ t ≤ n : target node
+    s = random.randint(0, numNodes-1)  # 1 ≤ s ≤ n : starting node t = random.randint(0, numNodes-1)  # 1 ≤ t ≤ n : target node
 
     G = nx.fast_gnp_random_graph(numNodes, probability, directed=True)
     # G = nx.barabasi_albert_graph(numNodes, 1)
@@ -21,12 +23,6 @@ for _ in range(numTests):
     for (u, v) in G.edges():
         li = random.randint(1, maxWeight)  # 0 < li ≤ 1000 : length di to ci
         G.edges[u, v]['weight'] = li
-
-    # pos = nx.circular_layout(G)
-    # nx.draw(G, pos, with_labels=True, font_weight='bold')
-    # labels = nx.get_edge_attributes(G, 'weight')
-    # nx.draw_networkx_edge_labels(G, pos, edge_labels=labels)
-    # plt.show()
 
     shortcuts = list()
     for _ in range(numShortcuts):

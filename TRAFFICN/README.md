@@ -48,14 +48,37 @@ Sample Output
 
 The task is to calculate a shortest path from s to t for every shortcut (two-way road), and pick the minimum of these shortest paths.
 
-To calculate the shortest path *dijkstra's algorithm* with a *priority queue* will be used, as the number of nodes can be high. The algorithm does not need to track the path, and can terminate when the target node was hit. 
+To solve this, first all shortest path from starting node to all other nodes and all shortest paths (with the reversed graph) from target node to all other nodes get calculated. This means the shortest path algorithm will be executed exactly 40 times. A shortcut then has to connect a node reachable from starting point and a node reachable from target node, creating a new path from starting node to target node. This new path is a possible new shortest path between those nodes. To calculate the length of this new path, there are three cases:
+
+1. Starting node and target node are not connected without shortcut. The beginning of the shortcut is reachable from starting node, and the ending of the shortcut is reachable from target node. The length of the new path is: `shortestpath(starting node, beginning of shortcut) + length of shortcut + shortestpath(target node, ending of shortcut)`.
+2. Starting node and target node are not connected without shortcut. The beginning of the shortcut is reachable from target node, and the ending of the shortcut is reachable from beginning node. The length is: `shortestpath(target node, beginning of shortcut) + length of shortcut + shortestpath(starting node, ending of shortcut)`.
+3. Starting node and target node are connected without shortcut. Beginning of shortcut and ending of shortcut are both reachable from starting node and target node. The length is then: `length of shortcut + minimum of(shortestpath(starting node, ending of shortcut), shortestpath(starting node, beginning of shortcut)) + minimum of(shortestpath(target node, ending of shortcut), shortestpath(target node, beginning of shortcut))`.
+
+All other cases get dismissed, because starting node and target node are not connected.
+
+To calculate the shortest path, *dijkstra's algorithm* with a *priority queue* will be used as the number of nodes can be high. The algorithm does not need to track the path.
 
 The graph will be implemented as an *adjacency list*. The elements store only weight of edge and ending node.
-
-The algorithm will be called once for every shortcut (that's 6000 calls at max).
 
 ## Golang solution
 
 ```sh
 $ cat input.txt | go run main.go
+```
+
+Profile CPU running time:
+
+```sh
+$ go build main.go
+$ cat input.txt | ./main -cpuprofile cpu.prof
+$ go tool pprof cpu.prof
+(pprof) top10
+```
+
+## Create random input
+
+Tweak the numbers in the script before. If you want to create a big input like on SPOJ testing maching, you can go and make a coffee in between :)
+
+```sh
+$ python make_input.py
 ```
