@@ -64,7 +64,7 @@ type Edge struct {
 
 type Node struct {
 	graphIndex         int
-	adjList            map[int]int // adjList[graphIndex] = weight
+	adjList            []*Edge
 	dist               int
 	reachableFromStart bool
 	heapIndex          int
@@ -85,12 +85,15 @@ func NewGraph(numNodes int) *Graph {
 func (g *Graph) AddNode(index int) {
 	g.nodes[index] = &Node{
 		graphIndex: index,
-		adjList:    make(map[int]int),
 	}
 }
 
 func (g *Graph) AddEdge(from, to, weight int) {
-	g.nodes[from].adjList[to] = weight
+	g.nodes[from].adjList = append(g.nodes[from].adjList, &Edge{
+		from:   from,
+		to:     to,
+		weight: weight,
+	})
 }
 
 func (g *Graph) dijkstra(start int) {
@@ -106,10 +109,10 @@ func (g *Graph) dijkstra(start int) {
 	queue.update(g.nodes[start], 0)
 	for queue.Len() > 0 {
 		u := heap.Pop(&queue).(*Node)
-		for to, weight := range u.adjList {
-			v := g.nodes[to]
-			if v.dist > u.dist+weight {
-				queue.update(g.nodes[to], u.dist+weight)
+		for _, e := range u.adjList {
+			v := g.nodes[e.to]
+			if v.dist > u.dist+e.weight {
+				queue.update(g.nodes[e.to], u.dist+e.weight)
 			}
 		}
 	}
