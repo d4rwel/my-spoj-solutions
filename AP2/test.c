@@ -16,7 +16,7 @@ typedef struct tripel {
 tripel *get_test_tripel(int start, int distance);
 
 int main(int argc, char *argv[]) {
-    
+
     tripel *result;
     srand(time(NULL));
 
@@ -30,27 +30,26 @@ int main(int argc, char *argv[]) {
 
         printf("%lld %lld %lld\n", result->third, result->last_third, result->sum);
         free(result);
-    } 
+    }
 
     return 0;
 }
 
-tripel *get_test_tripel(int start, int distance)
-{
+tripel *get_test_tripel(int start, int distance) {
     long long n = 0;
     long long offset = 0;
     tripel *test_tripel = malloc(sizeof(tripel));
 
-    test_tripel->third = (long long)start + (long long)2*distance;
+    test_tripel->third = (long long)start + (long long)2 * distance;
     test_tripel->sum = offset = (long long)start;
 
     while (n < 10000) {
         offset += (long long)distance;
-        test_tripel->sum += offset; 
+        test_tripel->sum += offset;
         n++;
-    }    
-    
-    test_tripel->last_third = offset - (long long)2*distance; 
+    }
 
-    return test_tripel;    
+    test_tripel->last_third = offset - (long long)2 * distance;
+
+    return test_tripel;
 }

@@ -48,7 +48,7 @@ func (g *Graph) GetGraphIndex(cityName string) int {
 	return g.names[cityName]
 }
 
-type MinPriorityQueue []*Vertex
+:type MinPriorityQueue []*Vertex
 
 func (mpq MinPriorityQueue) Len() int { return len(mpq) }
 

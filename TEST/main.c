@@ -1,12 +1,12 @@
 /*
  * TEST - Life, the Universe, and Everything
- *       
+ *
  *       #basic #tutorial
- *       
+ *
  *      Your program is to use the brute-force approach in order
  *      to find the Answer to Life, the Universe, and Everything.
- *      More precisely... rewrite small numbers from input to 
- *      output. Stop processing input after reading in the number 
+ *      More precisely... rewrite small numbers from input to
+ *      output. Stop processing input after reading in the number
  *      42. All numbers at input are integers of one or two digits.
  *
  *      Example
@@ -22,16 +22,18 @@
  *      1
  *      2
  *      88
- */ 
+ */
 #include <stdio.h>
 int main(int argc, char *argv[]) {
- 
-        int i;
- 
-        while(scanf("%d", &i)) {
-                if(i == 42) return 0;
-                printf("%d\n", i);
+
+    int i;
+
+    while(scanf("%d", &i)) {
+        if(i == 42) {
+            return 0;
         }
- 
-        return 1;
+        printf("%d\n", i);
+    }
+
+    return 1;
 }

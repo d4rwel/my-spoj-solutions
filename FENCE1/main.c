@@ -1,8 +1,7 @@
 #define PI_2 6.2831852
 #include <stdio.h>
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     int length = 0;
     double area = 0.0;
 

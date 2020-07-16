@@ -16,8 +16,7 @@ int push (struct stack *stack, int element);
 int pop (struct stack *stack);
 
 
-int main (int argc, const char *argv[])
-{
+int main (int argc, const char *argv[]) {
     int n;
     size_t len = 0;
     char *line = NULL;
@@ -29,22 +28,22 @@ int main (int argc, const char *argv[])
     while (n != 0) {
         getline(&line, &len, stdin);
 
-        if(is_organizable(line, n))
+        if(is_organizable(line, n)) {
             printf("yes\n");
-        else
+        } else {
             printf("no\n");
-        
+        }
+
         getline(&line, &len, stdin);
         sscanf(line, "%d", &n);
     }
 
     free(line);
-        
+
     return 0;
 }
 
-bool is_organizable (char *line, int n)
-{
+bool is_organizable (char *line, int n) {
     struct stack side_street;
     side_street.count = 0;
 
@@ -56,7 +55,7 @@ bool is_organizable (char *line, int n)
         sscanf(line, "%d%n", &truck, &offset);
         line += offset;
         if (truck != count) {
-            while (!is_empty(&side_street) 
+            while (!is_empty(&side_street)
                     && first(&side_street) < truck) {
                 pop(&side_street);
                 count++;
@@ -68,46 +67,46 @@ bool is_organizable (char *line, int n)
     }
 
     while (!is_empty(&side_street)) {
-        if (pop(&side_street) == count)
+        if (pop(&side_street) == count) {
             count++;
-        else
-            return false;    
+        } else {
+            return false;
+        }
     }
 
     return true;
 }
 
-int first(struct stack *stack)
-{
-    if (is_empty(stack))
+int first(struct stack *stack) {
+    if (is_empty(stack)) {
         return -1;
-    
-    return stack->elements[stack->count-1];
-    
+    }
+
+    return stack->elements[stack->count - 1];
+
 }
 
-bool is_empty (struct stack *stack)
-{
-    if (stack->count == 0)
+bool is_empty (struct stack *stack) {
+    if (stack->count == 0) {
         return true;
-    else
+    } else {
         return false;
+    }
 }
 
-int push (struct stack *stack, int element)
-{
+int push (struct stack *stack, int element) {
     stack->elements[stack->count] = element;
     stack->count++;
 
     return 0;
 }
 
-int pop (struct stack *stack)
-{
+int pop (struct stack *stack) {
     int ret;
 
-    if (is_empty(stack))
+    if (is_empty(stack)) {
         return -1;
+    }
 
     ret = first(stack);
     stack->count--;

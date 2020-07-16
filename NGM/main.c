@@ -1,10 +1,9 @@
 #include <stdio.h>
-    
+
 #define NIKIFOR 1
 #define TROFIM 2
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     int start;
     int winner;
     int winning_move;
@@ -20,6 +19,6 @@ int main(int argc, char *argv[])
         winning_move = start % 10;
         printf("%d\n%d\n", winner, winning_move);
     }
-    
+
     return 0;
 }

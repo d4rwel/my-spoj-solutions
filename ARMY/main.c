@@ -4,8 +4,7 @@ int read_num_testcase(void);
 void do_testcase(void);
 
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     int num_testcase;
 
     num_testcase = read_num_testcase();
@@ -18,17 +17,15 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-int read_num_testcase(void) 
-{
+int read_num_testcase(void) {
     int num;
 
     scanf("%d", &num);
 
-    return num; 
+    return num;
 }
 
-void do_testcase(void)
-{
+void do_testcase(void) {
     char *winner = "Godzilla";
     int num_monster_mechgodzilla = 0;
     int num_monster_godzilla = 0;
@@ -40,8 +37,9 @@ void do_testcase(void)
 
     for(int i = 0; i < num_monster_godzilla; i++) {
         scanf("%d", &strength_monster);
-        if(strength_monster > highest_strength)
+        if(strength_monster > highest_strength) {
             highest_strength = strength_monster;
+        }
     }
 
     for(int i = 0; i < num_monster_mechgodzilla; i++) {
